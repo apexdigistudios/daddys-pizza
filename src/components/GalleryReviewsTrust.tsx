@@ -115,7 +115,10 @@ function useCounter(target: number, duration = 2000, active: boolean) {
 /* ─────────────── CAROUSEL ─────────────── */
 function FeaturedCarousel() {
   const [current, setCurrent] = useState(0);
-  const featured = GALLERY_ITEMS.filter((i) => i.featured).concat(GALLERY_ITEMS.slice(0, 4));
+ const featured = [
+  ...GALLERY_ITEMS.filter((i) => i.featured),
+  ...GALLERY_ITEMS.filter((i) => !i.featured).slice(0, 4),
+];
 
   useEffect(() => {
     const t = setInterval(() => setCurrent((c) => (c + 1) % featured.length), 4000);

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 import { menuData as initialMenuData, type MenuCategory, type MenuItem } from '../data/menuData';
+import { supabase } from '../lib/supabase';
 
 export interface Promotion {
   id: string;
@@ -180,6 +181,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
       { id: 4, src: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=800&h=600&fit=crop', alt: 'Jollof Rice', featured: false },
     ];
   });
+
+  useEffect(() => {
+  const loadMenu = async () => {
+    const { data, error } = await supabase
+      .from('menu_items')
+      .select('*');
+
+  };
+
+  loadMenu();
+}, []);
+
+
 
   // Sync to localStorage
   useEffect(() => { localStorage.setItem('daddys-menu-categories', JSON.stringify(categories)); }, [categories]);
